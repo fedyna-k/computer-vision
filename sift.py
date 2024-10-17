@@ -14,7 +14,7 @@ def compute(image):
   :return: The descriptor matrix computed by the SIFT.
   """
   grayscale = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-  sift = cv.SIFT_create(200)
+  sift = cv.SIFT_create()
   _, descriptors = sift.detectAndCompute(grayscale, None)
   return descriptors
 

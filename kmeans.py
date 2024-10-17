@@ -3,6 +3,7 @@ if __name__ == "__main__":
 
 
 from sklearn.cluster import KMeans
+import pickle
 
 
 def compute(descriptors, n_clusters=500):
@@ -16,3 +17,21 @@ def compute(descriptors, n_clusters=500):
   clusters = KMeans(n_clusters=n_clusters)
   clusters.fit(descriptors)
   return clusters
+
+
+def save(model):
+  """
+  Saves model inside the kmeans.sav.
+
+  :param model: The kmeans model to save.
+  """
+  pickle.dump(model, open("kmeans.sav", "wb"))
+
+
+def load():
+  """
+  Loads model from the kmeans.sav.
+
+  :return: The saved kmeans model.
+  """
+  return pickle.load(open("kmeans.sav", "rb"))

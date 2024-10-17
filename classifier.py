@@ -19,7 +19,7 @@ class ImageClassifier:
   """
 
 
-  def __init__(self, path):
+  def __init__(self, path, fast=True):
     """
     Instanciates a new ImageClassifier object.
     Note that the training time might take some time.
@@ -39,7 +39,11 @@ class ImageClassifier:
     descriptors_mat_test = np.concatenate(descriptors_test)
 
     print("Fitting KMeans...")
-    self.__KMEANS = kmeans.compute(descriptors_mat_train, n_clusters=100)
+    if fast:
+      self.__KMEANS = kmeans.load()
+    else:
+      self.__KMEANS = kmeans.compute(descriptors_mat_train, n_clusters=100)
+      kmeans.save(self.__KMEANS)
 
     print("Extracting closest clusters...")
     predicts_train = list(map(self.__KMEANS.predict, descriptors_train))

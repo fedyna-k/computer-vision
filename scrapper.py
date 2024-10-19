@@ -7,12 +7,13 @@ import cv2 as cv
 import os
 
 
-def get_all_pictures(path: str):
+def get_all_pictures(path: str, verbose=True):
   """
   Get all images and their corresponding labels.
   The labels are automatically computed from parent folders.
 
   :param path: The base path of all images.
+  :param verbose: Is every step printed?
   :return: Train test images and train test labels.
   """
   subpaths = list(map(lambda p: path + "/" + p, os.listdir(path)))
@@ -32,6 +33,6 @@ def get_all_pictures(path: str):
       labels.append(labels_dic.index(dirpath))
       images.append(cv.imread(path))
   
-  print("All labels:", labels_dic)
+  verbose and print("All labels:", labels_dic)
 
   return *train_test_split(images, labels, test_size=0.2), labels_dic

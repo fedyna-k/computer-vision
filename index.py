@@ -15,6 +15,23 @@ if __name__ != "__main__":
 
 
 from classifier import ImageClassifier
+from matplotlib.pyplot import hist, show
+from numpy import mean
 
 
-classifier = ImageClassifier("animals")
+knn = []
+svc = []
+
+for i in range(50):
+  print(f"{100 * i // 49}%")
+  classifier = ImageClassifier("animals", verbose=False)
+  score = classifier.get_scores()
+
+  knn.append(score["knn"])
+  svc.append(score["svc"])
+
+print("Average KNN:", mean(knn))
+print("Average SVC:", mean(svc))
+
+hist([knn, svc], histtype="bar")
+show()
